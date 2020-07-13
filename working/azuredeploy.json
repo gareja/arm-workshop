@@ -2,10 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "storageAccount": {
+        "storageAccountPrefix": {
            "type": "string",
+           "defaultValue": "gareja",
+           "maxLength": 8,
            "metadata": {
-                "description": "name for storage account"
+                "description": "first part of the storage acccount name"
             }
         },
         "accountType": {
@@ -22,15 +24,17 @@
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "storageAccountName": "[tolower(concat(parameters('storageAccountPrefix'), uniqueString(resourceGroup().id)))]"
+    },
     "resources": [
             {
-                "name": "[parameters('storageAccount')]",
+                "name": "[variables('storageAccountName')]",
                 "type": "Microsoft.Storage/storageAccounts",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
                 "tags": {
-                    "displayName": "[parameters('storageAccount')]"
+                    "displayName": "[variables('storageAccountName')]"
                 },
                 "properties": {
                     "accountType": "[parameters('accountType')]"
