@@ -25,15 +25,15 @@
     "variables": {},
     "resources": [
             {
-                "name": "[parmeters('storageAccount')]",
+                "name": "[parameters('storageAccount')]",
                 "type": "Microsoft.Storage/storageAccounts",
                 "apiVersion": "2015-06-15",
                 "location": "[resourceGroup().location]",
                 "tags": {
-                    "displayName": "[parmeters('storageAccount')]"
+                    "displayName": "[parameters('storageAccount')]"
                 },
                 "properties": {
-                    "accountType": "[parmeters('accountType')"
+                    "accountType": "[parameters('accountType')]"
                 }
             }
     ],
